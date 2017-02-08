@@ -1,0 +1,428 @@
+\documentclass[a4paper,norsk, 10pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage{verbatim}
+\usepackage{listings}
+\usepackage{graphicx}
+\usepackage[norsk]{babel}
+\usepackage{a4wide}
+\usepackage{color}
+\usepackage{amsmath}
+\usepackage{float}
+\usepackage{amssymb}
+\usepackage[dvips]{epsfig}
+\usepackage[toc,page]{appendix}
+\usepackage[T1]{fontenc}
+\usepackage{cite} % [2,3,4] --> [2--4]
+\usepackage{shadow}
+\usepackage{hyperref}
+\usepackage{titling}
+\usepackage{marvosym }
+\usepackage{subcaption}
+\usepackage[noabbrev]{cleveref}
+\usepackage{cite}
+
+
+\setlength{\droptitle}{-10em}   % This is your set screw
+
+\setcounter{tocdepth}{2}
+
+\lstset{language=c++}
+\lstset{alsolanguage=[90]Fortran}
+\lstset{alsolanguage=Python}
+\lstset{basicstyle=\small}
+\lstset{backgroundcolor=\color{white}}
+\lstset{frame=single}
+\lstset{stringstyle=\ttfamily}
+\lstset{keywordstyle=\color{red}\bfseries}
+\lstset{commentstyle=\itshape\color{blue}}
+\lstset{showspaces=false}
+\lstset{showstringspaces=false}
+\lstset{showtabs=false}
+\lstset{breaklines}
+\title{FYS3121 Oblig 3}
+\author{Daniel Heinesen, daniehei}
+\begin{document}
+\maketitle
+
+\section*{1)}
+\subsection*{a)}
+
+To find the Lagrangian, we need to find the Cartesian coordinates expressed with the general coordinate $s$
+
+\begin{equation}
+y = h -s\sin 30^{\circ} = h-\frac{s}{2}, \qquad x = s\cos 30^{\circ} = s\frac{\sqrt{3}}{2}
+\end{equation}
+
+We then find that
+
+$$
+\dot{y} = -\frac{\dot{s}}{2}, \qquad \dot{x} = \dot{s}\frac{\sqrt{3}}{2}
+$$
+
+We can then write the energies
+
+$$
+V = mgy = mg(h-\frac{s}{2})
+$$
+$$
+T = \frac{1}{2}mv^2 = \frac{1}{2}m(\frac{\dot{s}^2}{4} + \frac{3}{4}\dot{s}^2) = \frac{1}{2}m\dot{s}^2
+$$
+
+We then find that the Lagrangian is
+
+$$
+\mathcal{L} = T -V = \frac{1}{2}m\dot{s}^2 -mg(h-\frac{s}{2}) 
+$$
+
+\subsection*{b)}
+With an accelerated incline, we have to rewrite the coordinates
+
+$$
+y = h-\frac{s}{2}, \qquad x = \frac{1}{2}at^2 + s\frac{\sqrt{3}}{2}
+$$
+
+$$
+\dot{y} = -\frac{\dot{s}}{2}, \qquad \dot{x} = at + \dot{s}\frac{\sqrt{3}}{2}
+$$
+
+For the energies we see that
+
+$$
+V = mgy = mg(h-\frac{s}{2})
+$$
+
+$$
+T = \frac{1}{2}mv^2 = \frac{1}{2}m(\frac{\dot{s}^2}{4} + a^2t^2 + \dot{s}at\sqrt{3} + \dot{s}^2\frac{3}{4})
+$$
+
+$$
+= \frac{1}{2}m()\dot{s}^2 + at(at + \dot{s}\sqrt{3}))
+$$
+
+So we get the Lagrangian 
+
+$$
+\mathcal{L} = T -V = \frac{1}{2}m(\dot{s}^2 + at(at + \dot{s}\sqrt{3})) - mg(h-\frac{s}{2})
+$$
+
+\subsection*{c)}
+We can now find the e.o.m. for this system by solving Lagrange's equation. We first find that
+
+$$
+\frac{\partial \mathcal{L}}{\partial s} = \frac{mg}{2}
+$$
+
+$$
+\frac{\partial \mathcal{L}}{\partial \dot{s}} = m\dot{s} +mat\frac{\sqrt{3}}{2}
+$$
+
+$$
+\frac{d}{dt}\left(\frac{\partial \mathcal{L}}{\partial \dot{s}} \right) = m\ddot{s} + ma\frac{\sqrt{3}}{2}
+$$
+
+We can then write the e.o.m
+
+$$
+m\ddot{s} + ma\frac{\sqrt{3}}{2} - \frac{mg}{2} = 0
+$$
+
+$$
+\Rightarrow \ddot{s} = \frac{1}{2}(g-\sqrt{3}a)
+$$
+
+We can now integrate this twice with respect to $s$.
+
+$$
+s(t) = s_0 +v_0t + \frac{1}{4}(g-\sqrt{3}a)t^2
+$$
+
+Knowing that at $t=0$: $r_0 = 0$ and $v_0 = 0$ we finally get that
+
+$$
+s(t) = \frac{1}{4}(g-\sqrt{3}a)t^2
+$$
+
+\section*{2)}
+First we write the coordinates of the ball
+
+$$
+x = r\sin\theta \cos(\omega t), \qquad y = r\sin\theta \sin(\omega t), \qquad z = r\cos \theta
+$$
+
+$$
+\dot{x} = r\dot{\theta}\cos\theta \cos(\omega t) - r\omega\sin\theta \sin(\omega t) 
+$$
+
+$$
+\dot{y} = r\dot{\theta}\cos\theta \sin(\omega t) - r\omega\sin\theta \cos(\omega t) 
+$$
+
+$$
+\dot{z} = -r\dot{\theta}\sin \theta
+$$
+
+with out writing down the quite long expressions for $\dot{x}$, $\dot{y}$ and $\dot{z}$, we get that
+
+$$
+\dot{x}^2 + \dot{y}^2 + \dot{z}^2 = r^2\dot{\theta}^2 + r^2\omega^2\sin^2 \theta
+$$
+
+Since there are no gravitation, we get that $V = 0$, and therefor
+
+$$
+\mathcal{L} = T = \frac{1}{2}m(r^2\dot{\theta}^2 + r^2\omega^2\sin^2)
+$$
+
+We can now find Lagrange's equation
+
+$$
+\frac{\partial \mathcal{L}}{\partial \theta} = mr^2\omega^2 \sin\theta \cos\theta
+$$
+
+$$
+\frac{\partial \mathcal{L}}{\partial \dot{\theta}} = mr^2\dot{\theta}
+$$
+
+$$
+\frac{d}{dt}\left( \frac{\partial \mathcal{L}}{\partial \dot{\theta}} \right) = mr^2\ddot{\theta}
+$$
+
+An we find the e.o.m
+
+$$
+mr^2\ddot{\theta} - mr^2\omega^2 \sin\theta \cos\theta = 0
+$$
+
+\subsection*{b)}
+
+\subsection*{c)}
+
+
+\section*{3)}
+\subsection*{a)}
+Here we start by finding the energies. If we define the plate as being where $V = 0$, we can see that only the lower mass has a potential energy. If the rope has length $L$, we see that
+
+$$
+V = mg(-(L-r)) = mg(r-L)
+$$
+
+The lower mass have a kinetic energy gives as 
+
+$$
+\frac{1}{2}m\dot{r}^2
+$$
+
+While the upper mass has kinetic energy from being dragged towards the hole, and from the rotation around the hole. Its kinetic energy is then
+
+$$
+\frac{1}{2}m\dot{r}^2 + \frac{1}{2}mr^2\dot{\theta}^2
+$$
+
+Giving us a total kinetic energy of
+
+$$
+T = 2\cdot\frac{1}{2}m\dot{r}^2 + \frac{1}{2}mr^2\dot{\theta}^2 
+$$
+
+And a Lagrangian
+
+$$
+\mathcal{L} = \frac{1}{2}m(2\dot{r}^2 +r^2\dot{\theta}^2) - mg(r-L)
+$$
+
+We can now find the e.o.m
+
+\begin{equation}
+\frac{\partial \mathcal{L}}{\partial \theta} = 0
+\label{eq:partialtheta}
+\end{equation}
+
+
+\begin{equation}
+\frac{\partial \mathcal{L}}{\partial \dot{\theta}} = mr^2\dot{\theta}
+\label{eq:partialthetadot}
+\end{equation}
+
+$$
+\frac{d}{dt}\left(\frac{\partial \mathcal{L}}{\partial \dot{\theta}}\right) = mr^2\ddot{\theta} + 2mr\dot{r}\dot{\theta}
+$$
+
+So the first e.o.m is:
+
+$$
+mr^2\ddot{\theta} + 2mr\dot{r}\dot{\theta} = 0
+$$
+
+
+For the second
+
+$$
+\frac{\partial \mathcal{L}}{\partial r} = mr\dot{\theta}^2 - mg
+$$
+$$
+\frac{\partial \mathcal{L}}{\partial \dot{r}} = 2m\dot{r}
+$$
+$$
+\frac{d}{dt}\left(\frac{\partial \mathcal{L}}{\partial \dot{r}}\right) = 2m\ddot{r}
+$$
+
+So the second e.o.m becomes
+
+$$
+2m\ddot{r} - mr\dot{\theta}^2 + mg = 0
+$$
+
+\subsection*{b)}
+
+As we saw above from \ref{eq:partialtheta}
+
+$$
+\frac{\partial \mathcal{L}}{\partial \theta} = 0
+$$
+
+This means that $\theta$ is a cyclic coordinate, and therefor
+
+
+$$
+\frac{\partial \mathcal{L}}{\partial \dot{\theta}} = mr^2\dot{\theta} = \mathrm{constant} = \ell
+$$
+
+We can there for rewrite $\dot{\theta}$ as 
+
+$$
+\dot{\theta} = \frac{\ell}{mr^2}
+$$
+
+If we set this into the second e.o.m we get a description of the system, only dependent on $r$
+
+$$
+2m\ddot{r} - \frac{\ell ^2}{mr^3} + mg = 0
+$$
+
+\section*{4)}
+\subsection*{a)}
+
+For convenience I am going to label the upper mass $m_1$ and the pendulum bob $m_2$. The coordinates then becomes
+
+$$
+x_1 = s, \qquad y_1 = 0
+$$
+$$
+\dot{x}_1 = \dot{s}, \qquad \dot{y}_1 = 0
+$$
+
+and
+
+$$
+x_2 =  s + d\sin \theta, \qquad y_2 = -d\cos \theta
+$$
+
+$$
+\dot{x}_2 = \dot{s} + d\cos\theta,\qquad \dot{y}_2 = d\sin\theta
+$$
+
+And the energies
+
+$$
+V = mg(y_1 + y_2) = -mgd\cos\theta
+$$
+$$
+T = \frac{1}{2}m(\dot{x}_1^2 + \dot{y}_1^2 + \dot{x}_2^2 + \dot{y}_2^2)
+$$
+$$
+= \frac{1}{2}m(2\dot{s}^2 +d^2\dot{\theta}^2 + 2\dot{\theta}\dot{s}d\cos\theta) 
+$$
+
+This gives us
+
+$$
+\mathcal{L} = T -V = \frac{1}{2}m(2\dot{s}^2 +d^2\dot{\theta}^2 + 2\dot{\theta}\dot{s}d\cos\theta) +mgd\cos\theta
+$$
+
+\subsection*{b)}
+If we differentiate $\mathcal{L}$ with respect to $s$
+
+$$
+\frac{\partial \mathcal{L}}{\partial s} = 0
+$$
+
+So $s$ is a cyclic coordinate, meaning that the Lagrangian does not depend on $s$. It can also be shown that since $s$ is cyclic, there is a conserved quantity in this system, namely
+
+$$
+\frac{\partial \mathcal{L}}{\partial \dot{s}} = 2m\dot{s} + md\dot{\theta}\cos\theta 
+$$
+
+Since this quantity is conserved, it is constant
+
+$$
+2m\dot{s} + md\dot{\theta}\cos\theta = \ell
+$$
+
+We can therefor rewrite this as 
+
+$$
+\dot{s} =\frac{1}{2}(\frac{\ell}{m} -d\dot{\theta}\cos\theta)
+$$
+
+If we insert this into the Lagrangian, we get
+
+$$
+\mathcal{L} = \frac{1}{2}m(\frac{1}{2}(\frac{\ell}{m} -d\dot{\theta}\cos\theta)^2 +d^2\dot{\theta}^2 + \dot{\theta}(\frac{\ell}{m} -d\dot{\theta}\cos\theta)d\cos\theta) +mgd\cos\theta
+$$
+
+$$
+= \frac{1}{2}m(\frac{\ell^2}{2m^2} + \frac{d^2\dot{\theta}^2}{2}\cos^2\theta + d^2\dot{\theta}) + mgd\sin\theta
+$$
+
+\subsection*{c)}
+We can now find the e.o.m
+
+$$
+\frac{\partial \mathcal{L}}{\partial \theta} = -mgd\sin\theta + \frac{1}{2}md^2\dot{\theta}^2\cos\theta\sin\theta
+$$
+
+$$
+\frac{\partial \mathcal{L}}{\partial \dot{\theta}} = -\frac{1}{2}md^2\dot{\theta}\cos^2\theta +md^2\dot{\theta} = md^2(\dot{\theta} - \frac{1}{2}\dot{\theta}\cos^2\theta)
+$$
+$$
+\frac{d}{dt}\left(\frac{\partial \mathcal{L}}{\partial \dot{\theta}}\right) = md^2(\ddot{\theta} - \frac{1}{2}\ddot{\theta}\cos^2\theta + \dot{\theta}^2\sin\theta\cos\theta)
+$$
+
+This gives us that
+$$
+md^2(\ddot{\theta} - \frac{1}{2}\ddot{\theta}\cos^2\theta + \dot{\theta}^2\sin\theta\cos\theta) +mgd\sin\theta - \frac{1}{2}md^2\dot{\theta}^2\cos\theta\sin\theta = 0
+$$
+$$
+\Rightarrow \ddot{\theta}(1-\frac{1}{2}\cos^2\theta) + \frac{\dot{\theta}^2}{2}\sin\theta\cos\theta + \frac{g}{d}\sin\theta = 0
+$$
+
+\subsection*{d)}
+We can find a small-angle solution to this problem. If we Taylor expand the above expression around $\theta = 0$. We get that the first order Taylor series is
+
+$$
+T_2(f(\theta)) = \frac{1}{2}\ddot{\theta}+\frac{g}{d}\theta + \frac{1}{2}\theta\dot{\theta}^2 = 0
+$$
+
+We are only interested in the first order, and for small $\theta$ see get that $\dot{\theta}^2 \rightarrow 0$, so this expression becomes
+
+$$
+\frac{1}{2}\ddot{\theta}+\frac{g}{d}\theta= 0
+$$
+
+This is a harmonic oscillator equation
+
+$$
+\ddot{\theta} = - \frac{2g}{d}\theta
+$$
+
+The angular frequency of this system will be
+
+$$
+\omega = \sqrt{\frac{2g}{d}}
+$$
+
+
+
+\end{document}
+
+
