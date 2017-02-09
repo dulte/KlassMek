@@ -170,7 +170,7 @@ $$
 Since there are no gravitation, we get that $V = 0$, and therefor
 
 $$
-\mathcal{L} = T = \frac{1}{2}m(r^2\dot{\theta}^2 + r^2\omega^2\sin^2)
+\mathcal{L} = T = \frac{1}{2}m(r^2\dot{\theta}^2 + r^2\omega^2\sin^2\theta)
 $$
 
 We can now find Lagrange's equation
@@ -194,8 +194,100 @@ mr^2\ddot{\theta} - mr^2\omega^2 \sin\theta \cos\theta = 0
 $$
 
 \subsection*{b)}
+A particle in a periodic potential $V(\theta)$ would have a Lagrangian
+
+$$
+\mathcal{L} = \frac{1}{2}mr^2\dot{\theta}^2 - V(\theta)
+$$
+
+We then look at out Lagrangian
+
+$$
+\mathcal{L} = \frac{1}{2}m(r^2\dot{\theta}^2 + r^2\omega^2\sin^2\theta)
+$$
+
+we then get
+$$
+\mathcal{L} = \frac{1}{2}mr^2(\dot{\theta}^2 + \omega^2\sin^2\theta) = \frac{1}{2}mr^2\dot{\theta}^2 + \frac{1}{2}mr^2 \omega^2\sin^2\theta
+$$
+
+We can see that we now have something that looks like a potential. We can say that the potential of this Lagrangian is
+
+$$
+V(\theta) = -\frac{1}{2}mr^2\omega^2\sin^2\theta
+$$
+
+This is a periodic potential with 2 stable equilibriums (at $0$ and $\pi$) and 2 unstable equilibriums(at $\pi/2$ and $3\pi/2$). So we can say that the Lagrangian of this system is similar to that of a particle in a periodic potential.
 
 \subsection*{c)}
+
+We can now start with out Lagrangian
+
+$$
+\mathcal{L} = \frac{1}{2}mr^2\dot{\theta}^2 + \frac{1}{2}mr^2 \omega^2\sin^2\theta
+$$
+
+and find the e.o.m
+
+$$
+\frac{\partial \mathcal{L}}{\partial \theta} = mr^2\omega^2\sin\theta\cos\theta
+$$
+
+$$
+\frac{\partial \mathcal{L}}{\partial \dot{\theta}} = mr^2\dot{\theta}
+$$
+$$
+\frac{d}{dt}\left(\frac{\partial \mathcal{L}}{\partial \dot{\theta}}\right) = mr^2\ddot{\theta}
+$$
+
+So the e.o.m is 
+
+$$
+mr^2\ddot{\theta} - mr^2\omega^2\sin\theta\cos\theta = 0
+$$
+
+We are now going to define $\phi = \theta - \theta_0$, where $\theta_0 = \frac{\pi}{2} + n\pi$. This gives us that $\theta = \theta_0 + \phi$, which we can use in the e.o.m
+
+$$
+mr^2\ddot{\phi} - mr^2\omega^2\sin(\phi + \theta_0)\cos(\phi + \theta_0) = 0
+$$
+
+We can now rewrite
+
+$$
+sin(\phi + \theta_0)\cos(\phi + \theta_0) = (\cos(\phi)\sin(\theta_0) + \cos(\theta_0)\sin(\phi))(\cos(\theta_0)\cos(\phi) - \sin(\phi)\sin(\theta_0))
+$$
+
+An using that $\theta = \theta_0 + \phi$
+
+$$
+sin(\phi + \theta_0)\cos(\phi + \theta_0) = -\sin(\phi)\cos(\phi) = -\frac{1}{2}\sin(2\phi)
+$$
+
+So
+
+$$
+mr^2\ddot{\phi} +\frac{1}{2}mr^2\omega^2\sin(2\phi) = 0
+$$
+
+From small angles, we know that $\sin\phi \approx \phi$. Using this we get
+
+$$
+mr^2\ddot{\phi} +mr^2\omega^2\phi = 0
+$$
+
+Which gives us
+
+$$
+\ddot{\phi} = \omega^2\phi
+$$
+
+This is a harmonic oscillator, with a angular frequency given simply (and tautologically) as
+
+$$
+\omega = \omega
+$$
+
 
 
 \section*{3)}
