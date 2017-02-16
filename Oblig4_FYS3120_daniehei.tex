@@ -1,0 +1,413 @@
+\documentclass[a4paper,norsk, 10pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage{verbatim}
+\usepackage{listings}
+\usepackage{graphicx}
+\usepackage[norsk]{babel}
+\usepackage{a4wide}
+\usepackage{color}
+\usepackage{amsmath}
+\usepackage{float}
+\usepackage{amssymb}
+\usepackage[dvips]{epsfig}
+\usepackage[toc,page]{appendix}
+\usepackage[T1]{fontenc}
+\usepackage{cite} % [2,3,4] --> [2--4]
+\usepackage{shadow}
+\usepackage{hyperref}
+\usepackage{titling}
+\usepackage{marvosym }
+\usepackage{subcaption}
+\usepackage[noabbrev]{cleveref}
+\usepackage{cite}
+
+
+\setlength{\droptitle}{-10em}   % This is your set screw
+
+\setcounter{tocdepth}{2}
+
+\lstset{language=c++}
+\lstset{alsolanguage=[90]Fortran}
+\lstset{alsolanguage=Python}
+\lstset{basicstyle=\small}
+\lstset{backgroundcolor=\color{white}}
+\lstset{frame=single}
+\lstset{stringstyle=\ttfamily}
+\lstset{keywordstyle=\color{red}\bfseries}
+\lstset{commentstyle=\itshape\color{blue}}
+\lstset{showspaces=false}
+\lstset{showstringspaces=false}
+\lstset{showtabs=false}
+\lstset{breaklines}
+\title{FYS3120 Oblig 4}
+\author{Daniel Heinesen, daniehei}
+\begin{document}
+\maketitle
+
+\section*{1)}
+\subsection*{a)}
+
+We are going to start by finding the coordinates, we only need to find $y$, since we need it to find the potential energy
+
+$$
+y = -\frac{b}{2}\cos\theta
+$$
+
+The potential energy is then given by
+
+$$
+V = mgy = -mg\frac{b}{2}\cos\theta
+$$
+
+There is only rotational energy for the rod, it has a inertia of $I = \frac{1}{3}mb^2$. So its kinetic energy is given as
+
+$$
+T = \frac{1}{2}I\omega^2 = \frac{1}{6}mb^2\dot{\theta}^2
+$$
+
+Giving us the Lagrangian
+
+$$
+L = T -V = \frac{1}{6}mb^2\dot{\theta}^2 +mg\frac{b}{2}\cos\theta
+$$
+
+We can now find the e.o.m
+
+$$
+\frac{\partial L}{\partial \theta} = -\frac{mgb}{2}\sin\theta
+$$
+
+$$
+\frac{\partial L}{\partial \dot{\theta}} = \frac{1}{3}mb^2\dot{\theta}, \qquad \frac{d}{dt}\left(\frac{\partial L}{\partial \dot{\theta}} \right) = \frac{1}{3}mb^2\ddot{\theta}
+$$
+
+Giving us that
+
+$$
+\frac{1}{3}mb^2\ddot{\theta} +\frac{mgb}{2}\sin\theta = 0
+$$
+
+or
+
+$$
+\ddot{\theta} + \frac{3g}{2b}\sin\theta = 0
+$$
+
+\subsection*{b)}
+We can see that for $\theta = 0$
+
+$$
+\ddot{\theta} = 0
+$$
+
+
+So this is a equilibrium. This is a minimum or maximum of the potential. We need to differentiate the potential twice to see if this is a minimum
+
+$$
+\frac{d^2}{d\theta^2} -\frac{mgb}{2}\cos\theta = \frac{mgb}{2}\cos\theta
+$$
+at $\theta = 0$
+$$
+\Rightarrow \frac{mgb}{2}\cos(0) = \frac{mgb}{2} > 0
+$$
+This shows that we have a minimum, and the equilibrium is thus stable.\\
+
+We can now look at the e.o.m for small angles. Then $\sin \theta \approx \theta$, so
+
+$$
+\ddot{\theta} = - \frac{3g}{2b}\theta
+$$
+
+This is harmonic oscillator with 
+
+$$
+\omega^2 = \frac{3g}{2b}
+$$
+
+Using that $T = \frac{2\pi}{\omega}$ we find that
+
+$$
+T_0 = 2\pi \sqrt{\frac{2b}{3g}}
+$$
+
+\subsection*{c)}
+
+Since 
+
+$$
+\frac{\partial L}{\partial t} = 0
+$$
+
+and 
+
+$$
+\frac{dH}{dt} = -\frac{\partial L}{\partial t} = 0
+$$
+
+We can see that the Hamiltonian is a constant of motion. Since the constraints are holonomic and time-independent, we know that the Hamiltonian is the same as the total energy of the system. Thus the total energy is conserved.\\
+
+The Hamiltonian is related to the e.o.m by Hamilton's equations
+
+$$
+\dot{p} = -\frac{\partial H}{\partial \theta},\qquad \dot{\theta} = \frac{\partial H}{\partial p}
+$$
+
+\subsection*{d)}
+\textit{This derivation is heavily inspired by a similar derivation for a normal pendulum, found on wikipedia.}\\
+
+We are going to start by looking at the energy of the pendulum. The pendulum has no kinetic energy at $\theta_0$ and potential $mg\cos\theta_0$. At some $\theta$ the kinetic energy has to be the difference in potential energy between these angles. So
+
+$$
+\frac{1}{6}mb^2\dot{\theta}^2 = \frac{mgb}{2}(\cos\theta - \cos\theta_0)
+$$
+
+giving us that
+
+$$
+\dot{\theta} = \frac{d\theta}{dt} = \sqrt{\frac{3g}{b}}\sqrt{(\cos\theta - \cos\theta_0)}
+$$
+
+Doing some physicist math we get that
+
+$$
+dt = \sqrt{\frac{b}{3g}}\frac{d\theta}{\sqrt{\cos\theta - \cos\theta_0}}
+$$
+
+The pendulum needs to fall from $0$ to $\theta_0$, then to $-\theta_0$, and then all the way back to $\theta_0$, meaning that the period is 4 times the time it take to fall from $0$ to $\theta_0$. Meaning that 
+
+$$
+T = 4\int dt = 4\sqrt{\frac{b}{3g}}\int_0^{\theta_0} \frac{d\theta}{\sqrt{\cos\theta - \cos\theta_0}}
+$$
+
+And we know that $T_0 = 2\pi \sqrt{\frac{2b}{3g}}$, giving us that
+
+$$
+T = T_0 \frac{\sqrt{2}}{\pi}\int_0^{\theta_0} \frac{d\theta}{\sqrt{\cos\theta - \cos\theta_0}}
+$$
+
+We can now solve this for $\theta_0 = \pi/2$
+
+$$
+T = T_0 \frac{\sqrt{2}}{\pi}\int_0^{\pi/2} \frac{d\theta}{\sqrt{\cos\theta}}
+$$
+
+From good old Rottmann page 161 eq. 116, we get that this is
+
+$$
+T = T_0 \frac{\sqrt{2}}{\pi} \frac{\pi \Gamma(\frac{1}{2})}{\sqrt{2}\Gamma(\frac{3}{4})^2} = T_0\frac{\sqrt{\pi}}{\Gamma(\frac{3}{4})^2} \approx 1.18 \cdot T_0
+$$
+
+\section*{2)}
+\subsection*{a)}
+First we write the coordinates of the ball
+
+$$
+x = r\sin\theta \cos(\omega t), \qquad y = r\sin\theta \sin(\omega t), \qquad z = -r\cos \theta
+$$
+
+$$
+\dot{x} = r\dot{\theta}\cos\theta \cos(\omega t) - r\omega\sin\theta \sin(\omega t) 
+$$
+
+$$
+\dot{y} = r\dot{\theta}\cos\theta \sin(\omega t) - r\omega\sin\theta \cos(\omega t) 
+$$
+
+$$
+\dot{z} = r\dot{\theta}\sin \theta
+$$
+
+with out writing down the quite long expressions for $\dot{x}$, $\dot{y}$ and $\dot{z}$, we get that
+
+$$
+\dot{x}^2 + \dot{y}^2 + \dot{z}^2 = r^2\dot{\theta}^2 + r^2\omega^2\sin^2 \theta
+$$
+
+We have the energies 
+
+$$
+V = mgy = -mgr\cos\theta
+$$
+$$
+T = \frac{1}{2}m(r^2\dot{\theta}^2 +r^2\omega^2\sin^2\theta)
+$$
+
+Giving us the Lagrangian
+
+$$
+L = \frac{1}{2}m(r^2\dot{\theta}^2 +r^2\omega^2\sin^2\theta) + mgr\cos\theta
+$$
+
+We can rewrite this as
+
+$$
+L = \frac{1}{2}mr^2\dot{\theta}^2+ (\frac{1}{2}mr^2\omega^2\sin^2\theta + mgr\cos\theta)
+$$
+
+We can therefor say that we have a potential
+
+$$
+W(\theta) = -(\frac{1}{2}mr^2\omega^2\sin^2\theta + mgr\cos\theta)
+$$
+
+The term 
+
+$$
+-\frac{1}{2}mr^2\omega^2\sin^2\theta
+$$
+
+Can be said to be the potential energy due to the centripetal force.
+
+\subsection*{b)}
+
+We can find the e.o.m
+
+$$
+\frac{\partial L}{\partial \theta} = mr^2\omega^2\sin\theta\cos\theta - mgr\sin\theta =  \frac{1}{2}mr^2\omega^2\sin 2\theta - mgr\sin\theta
+$$
+
+$$
+\frac{\partial L}{\partial \dot{\theta}} = mr^2\dot{\theta}, \qquad \frac{d}{dt}\left(\frac{\partial L}{\partial \dot{\theta}}\right) = mr^2\ddot{\theta}
+$$
+
+Giving us that
+
+$$
+mr^2\ddot{\theta} - \frac{1}{2}mr^2\omega^2\sin 2\theta + mgr\sin\theta = 0
+$$
+
+We can look at this for small angles. For small angles $\sin \theta \approx \theta$, so
+
+$$
+mr^2\ddot{\theta} - mr^2\omega^2\theta +mg\theta = 0
+$$
+
+$$
+\Rightarrow \ddot{\theta} = -\left(\frac{g}{r} - \omega^2\right)\theta
+$$
+
+This is a harmonic oscillation, giving us
+
+$$
+\Omega = \sqrt{\frac{g-r\omega^2}{r}}
+$$
+
+\subsection*{c)}
+We have the potential
+
+$$
+W(\theta) = -(\frac{1}{2}mr^2\omega^2\sin^2\theta + mgr\cos\theta)
+$$
+
+To find the equilibrium positions we have to differentiate
+
+\begin{equation}
+W'(\theta) = -mr^2\omega^2\sin\theta\cos\theta + mgr\sin\theta = -\frac{1}{2} mr^2\omega^2\sin 2\theta + mgr\sin\theta
+\label{eq:1der}
+\end{equation}
+
+We can see that this is 0 for $\theta = 0$, which indeed is an equilibrium. To find if it is a stable equilibrium, we have to check for which $\omega$ $W''(\theta = 0) > 0$
+
+\begin{equation}
+W''(\theta) = -mr^2\omega^2\cos 2\theta + mgr\cos\theta
+\label{eq:2der}
+\end{equation}
+
+$$
+W''(0) = -mr^2\omega^2 +mgr > 0
+$$
+
+This gives us the condition that
+
+$$
+\omega < \sqrt{\frac{g}{r}} = \omega_{cr}
+$$
+
+We are now going to look at $\omega > \omega_{cr}$. We are going to presuppose that $\sin\theta \neq 0$, and can therefor rewrite $W'(\theta)$ \ref{eq:1der} as
+
+$$
+-mr^2\omega_{cr}\cos\theta = mgr
+$$
+
+$$
+\Rightarrow \cos\theta = \frac{g}{r\omega^2}
+$$
+
+Giving us the new equilibrium points
+
+$$
+\theta_{\pm} = \arccos(\frac{g}{r\omega^2}) + n\pi, \qquad n= 0,1
+$$
+
+\subsection*{d)}
+
+When we now are going to check if these points are stable I am going to use a trick which makes it alot easier. I am going to say that 
+
+$$
+\omega = a\omega_{cr}
+$$
+
+Where $a>1$. This gives us that the equilibrium points can be written as
+
+$$
+\theta_{\pm} = \arccos(\frac{1}{a^2}) + n\pi, \qquad n= 0,1
+$$
+
+We can now use this to find if $W''(\theta_{\pm}) > 0$. Using \ref{eq:2der}
+
+$$
+W''(\arccos(\frac{1}{a^2})) =  -mr^2\omega^2\cos 2(\arccos(\frac{1}{a^2})) + mgr\cos(\arccos(\frac{1}{a^2}))
+$$
+
+We can obviously see that $\cos(2(\arccos(x))) = 2x^2 - 1$, so
+
+$$
+-mr^2\omega^2\left(\frac{2}{a^2}-1\right) + \frac{mgr}{a^2} > 0
+$$
+
+$$
+\Rightarrow \frac{g}{a^2} > ra^2\omega_{cr}\left(\frac{2}{a^2}-1\right)
+$$
+
+$$
+\Rightarrow \frac{1}{a^2} > 2-a^2
+$$
+
+$$
+\Rightarrow 1> 2a^2 - a^4 = a^2(2-a^2)
+$$
+
+Since $\cos(2(\arccos(x)) + n\pi) = 2x^2 - 1$ we get the same inequality for $W''(\arccos(\frac{1}{a^2})+n\pi)$.\\
+
+Looking at the inequality $1 > a^2(2-a^2)$ for $a = 1 \Rightarrow a^2(2-a^2) = 1$, we defined $a>1$ and for $a>1$ the function $a^2(2-a^2)$ is monotonically decreasing function, thus the inequality holds, and $\theta_{\pm}$ are stable equilibriums.
+
+
+\subsection*{e)}
+The Hamiltonian is defined here as
+
+\begin{equation}
+H = p\dot{\theta} - L
+\label{eq:hamiltonian}
+\end{equation}
+
+where
+
+$$
+p = \frac{\partial L}{\partial \dot{\theta}} = mr^2\dot{\theta}
+$$
+
+We then get a Hamiltonian
+
+$$
+H = mr^2\dot{\theta}^2 - L = \frac{p}{mr^2}- L 
+$$
+
+$$
+= \frac{p}{mr^2} - \frac{p}{2mr^2} - \frac{1}{2}mr^2\omega^2\sin^2\theta - mgr\cos\theta
+$$
+$$
+= \frac{p}{2mr^2} - \frac{1}{2}mr^2\omega^2\sin^2\theta - mgr\cos\theta
+$$
+\end{document}
+
+
