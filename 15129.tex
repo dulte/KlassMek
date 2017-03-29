@@ -1,0 +1,293 @@
+\documentclass[a4paper,norsk, 10pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage{verbatim}
+\usepackage{listings}
+\usepackage{graphicx}
+\usepackage[norsk]{babel}
+\usepackage{a4wide}
+\usepackage{color}
+\usepackage{amsmath}
+\usepackage{float}
+\usepackage{amssymb}
+\usepackage[dvips]{epsfig}
+\usepackage[toc,page]{appendix}
+\usepackage[T1]{fontenc}
+\usepackage{cite} % [2,3,4] --> [2--4]
+\usepackage{shadow}
+\usepackage{hyperref}
+\usepackage{titling}
+\usepackage{marvosym }
+\usepackage{subcaption}
+\usepackage[noabbrev]{cleveref}
+\usepackage{cite}
+
+
+\setlength{\droptitle}{-10em}   % This is your set screw
+
+\setcounter{tocdepth}{2}
+
+\lstset{language=c++}
+\lstset{alsolanguage=[90]Fortran}
+\lstset{alsolanguage=Python}
+\lstset{basicstyle=\small}
+\lstset{backgroundcolor=\color{white}}
+\lstset{frame=single}
+\lstset{stringstyle=\ttfamily}
+\lstset{keywordstyle=\color{red}\bfseries}
+\lstset{commentstyle=\itshape\color{blue}}
+\lstset{showspaces=false}
+\lstset{showstringspaces=false}
+\lstset{showtabs=false}
+\lstset{breaklines}
+\title{FYS3120 Home Exam}
+\author{Kandidatnr: 15129}
+\begin{document}
+\maketitle
+
+\section*{Question 1)}
+
+\subsection*{a)}
+We are looking at a free particle. The easiest coordinate system to use is Cartesian coordinates. The general Lagrangian is given as 
+
+\begin{equation}
+L = K - V
+\label{eq:lagrangian}
+\end{equation}
+
+Where $K$ is the kinetic energy and $V$ is the potential energy. The free particle is moving without any potential, so $V = 0$. The kinetic energy in Cartesian coordinates is given as $K = \frac{1}{2}mv^2$. So the Lagrangian of the free particle is thus
+
+\begin{equation}
+L = K = \frac{1}{2}mv^2
+\label{eq:lagrangianFreeParticle}
+\end{equation}
+
+where $v = \mathbf{v}\cdot \mathbf{v}$, where $\mathbf{v} = \dot{\mathbf{r}}$
+
+\subsection*{b)}
+
+The canonical momentum is defined as
+
+\begin{equation}
+p_{c,i} = \frac{\partial L}{\partial \dot{q}_i} =\frac{\partial L}{\partial v_i} 
+\end{equation}
+
+If we use out Lagrangian \eqref{eq:lagrangianFreeParticle} we get that the canonical momentum is 
+
+\begin{equation}
+p_c = m\mathbf{v}
+\label{eq:canonicalMomentum}
+\end{equation}
+
+Normal, mechanical is given as $p = m\mathbf{v}$, and as we see from \eqref{eq:canonicalMomentum}:
+
+$$
+p = p_c
+$$
+
+\subsection*{c)}
+
+If we look at the Lagrangian \eqref{eq:lagrangianFreeParticle} we see that is has no explicit dependence on $x$, $y$ or $z$ (position)
+
+$$
+\frac{\partial L}{\partial x} = \frac{\partial L}{\partial y} = \frac{\partial L}{\partial z} = 0
+$$
+
+This means that these are cyclic coordinates.
+
+\subsection*{d)}
+
+We know that there exist constants of motion due to the cyclic coordinates. We can quickly find the first three constants of motions by inserting our Lagrangian in to Lagrange's equation:
+
+\begin{equation}
+\frac{d}{dt}\frac{\partial L}{\partial v_i} - \frac{\partial L}{\partial r_i} = \frac{d}{dt}\frac{\partial L}{\partial v_i} = \frac{d}{dt} mv_i = 0
+\end{equation}
+
+We can see that we have a total time derivative that is zero. This means that the quantity we are differentiating is constant:
+
+\begin{equation}
+\frac{d}{dt} mv_i = 0 \Rightarrow mv_i = \text{constant} = c
+\end{equation}
+
+This is the momentum, thus all the components of the momentum is conserved. This gives us the three first constants of motion.\\
+
+We can find the three other conserved quantities by rewriting the Lagrangian \eqref{eq:lagrangianFreeParticle} in spherical coordinates:
+
+\begin{equation}
+L = \frac{1}{2}m(\dot{r}^2 + r^2\dot{\theta}^2 +r^2\sin^2\theta\dot{\phi}^2)
+\label{eq:lagrangianSpherical}
+\end{equation}
+
+We immediately see that $\phi$ is a cyclic coordinate. The corresponding constant of motion $l$ is the $z$-component of the angular momentum. But we are interested in getting showing that all the components of the angular momentum are constants of motion. We are going to do this by doing a infinitesimal rotation around some axis $\mathbf{\alpha}$:
+
+$$
+\mathbf{r} \rightarrow \mathbf{r}' = \mathbf{r} + \delta\mathbf{r} = \mathbf{r} + \delta\mathbf{\alpha}\times \mathbf{r}
+$$
+
+Such an infinitesimal rotation leaves the the Lagrangian invariant (shown in the appendix \ref{subsec:invariance}. We can now find the conserved quantity
+
+$$
+\delta K = \sum_i \frac{\partial L}{\partial \dot{r}_i}\delta r_i = \sum_i mv_i \delta r_i = m\mathbf{v}\cdot\delta\mathbf{r}
+$$
+$$
+= m\mathbf{v}\cdot (\delta\alpha\times \mathbf{r}) = m(\mathbf{r}\times \mathbf{r}) \cdot \delta \alpha = (\mathbf{r}\times \mathbf{p})\cdot\delta\alpha = \mathbf{L}\cdot\delta\alpha
+$$
+
+Since $\alpha$ is arbitrary this means that $\mathbf{L}$, the angular momentum, is the conserved.\\
+
+This gives us the six constants of motion: the three components of the momentum, and the three components of the angular momentum.\\
+
+There is a seventh constant of motion, which comes from the Lagrangian's independence of time. This means that energy is a constant of motion.
+
+\subsection*{e)}
+
+We can now start to look at a relativistic free particle. We are going to choose the Lagrangian
+
+\begin{equation}
+L = \frac{1}{2}mU^{\mu}U_{\mu}
+\label{eq:relativisticLagrangian}
+\end{equation}
+
+Where $U^{\mu}$ is the components of the four-velocity.\\
+
+We can show that this is Lorentz invariant. First, mass, $m$ is a Lorentz invariant quantity. Secondly, $U^{\mu}U_{\mu}$ is a inner product, and inner products are always invariant. This means that the whole expression only consists of invariant quantities, meaning that the expression itself, the Lagrangian, is invariant.
+
+\subsection*{f)}
+
+To find the constants of motion we again look at Lagrange's equations:
+
+$$
+L = \frac{d}{d\tau}\frac{\partial L}{\partial U^{\mu}} - \frac{\partial L}{\partial x^{\mu}} = 0
+$$
+
+Since out Lagrangian isn't dependent of $x^{\mu}$, and we have a total time derivative, we get that
+
+\begin{equation}
+\frac{\partial L}{\partial U^{\mu}}  = \text{constant}
+\end{equation}
+
+So we have to find $\frac{\partial L}{\partial U^{\mu}} = \frac{1}{2}m\frac{\partial }{\partial U^{\mu}} U^{\mu}U_{\mu} $:
+
+$$
+\frac{\partial }{\partial U^{\mu}} U^{\mu}U_{\mu} = \frac{\partial }{\partial U^{\mu}}  U^{\mu}g_{\mu \nu}U{\nu} = g_{\mu \nu}\frac{\partial }{\partial U^{\mu}}  U^{\mu}U{\nu}
+$$
+
+We then use the product rule:
+
+$$
+= g_{\mu \nu} \left(1\cdot U^{\nu} + U^{\mu}{\delta_{\mu}}^{\nu}\right) = g_{\mu \nu}\left(U^{\nu} + U^{\nu}\right) = 2g_{\mu \nu}U^{\nu}
+$$
+
+And lastly we apply the metric tensor and get that
+
+$$
+\frac{\partial }{\partial U^{\mu}} U^{\mu}U_{\mu} = 2U_{\mu}
+$$
+
+And we find that 
+
+\begin{equation}
+\frac{\partial L}{\partial U^{\mu}} = mU_{\mu} = \text{constant}
+\end{equation}
+
+This means that $P_{\mu} = mU_{\mu}$ is a constant of motion. This means that the three components of the relativistic momentum and the energy are constants of motion.
+
+\subsection*{g)}
+We are looking at the small Lorentz transformation
+
+\begin{equation}
+{L^{\mu}}_{\nu} = {\delta^{\mu}}_{\nu} + {\omega^{\mu}}_{\nu} 
+\end{equation}
+
+We are going to use this on something we now are invariant, namely the inner product $x^{\mu}x_{\mu}$. To do this we'll have to use that
+
+$$
+{L_{\mu}}^{\nu} = {\delta_{\mu}}^{\nu} + {\omega_{\mu}}^{\nu}
+$$
+
+We then find:
+
+$$
+x^{\mu}x_{\mu} = {x'}^{\mu}{x'}_{\mu} = ({L^{\mu}}_{\nu}x^{\nu})({L_{\mu}}^{\rho}x_{\rho}) = ({\delta^{\mu}}_{\nu}x^{\nu} + {\omega^{\mu}}_{\nu} x^{\nu})({\delta_{\mu}}^{\rho}x_{\rho} + {\omega_{\mu}}^{\rho}x_{\rho})
+$$
+$$
+= x^{\mu}x_{\mu} + {\omega^{\mu}}_{\nu} x^{\nu}x_{\mu} + x^{\mu}{\omega_{\mu}}^{\rho}x_{\rho} + {\omega^{\mu}}_{\nu} x^{\nu}{\omega_{\mu}}^{\rho}x_{\rho}
+$$
+
+In the last term ${\omega^{\mu}}_{\nu} x^{\nu}{\omega_{\mu}}^{\rho}x_{\rho}$ we get a higher order of $\omega$, meaning that this term disappears. Leaving us with
+
+$$
+x^{\mu}x_{\mu} = x^{\mu}x_{\mu} + {\omega^{\mu}}_{\nu} x^{\nu}x_{\mu} + x^{\mu}{\omega_{\mu}}^{\rho}x_{\rho}
+$$
+$$
+\Rightarrow {\omega^{\mu}}_{\nu} x^{\nu}x_{\mu} + x^{\mu}{\omega_{\mu}}^{\rho}x_{\rho} = 0
+$$
+
+If we rename the index $\rho \rightarrow \nu$ we see
+
+$$
+\Rightarrow {\omega^{\mu}}_{\nu} x^{\nu}x_{\mu} = - x^{\mu}{\omega_{\mu}}^{\nu}x_{\nu} 
+$$
+$$
+\Rightarrow {\omega^{\mu}}_{\nu} x^{\nu}x_{\mu} = - {\omega_{\mu}}^{\nu}x^{\mu}x_{\nu} 
+$$
+
+$$
+\Rightarrow {\omega^{\mu}}_{\nu} g^{\nu \sigma}x_{\sigma}x_{\mu} = - {\omega_{\mu}}^{\nu}g^{\mu \rho}x_{\rho}x_{\nu} 
+$$
+
+
+\textbf{Skriv mer her!}
+
+\subsection*{h)}
+
+We have the small Lorentz transformation given as
+
+\begin{equation}
+\delta x^{\mu}(\tau) = {\omega^{\mu}}_{\nu}x^{\nu}(\tau)
+\end{equation}
+
+We are going to look at the corresponding change in the Lagrangian $\delta L$. We are going to start with the definition
+
+$$
+\delta L = \frac{\partial L}{\partial x^{\mu}}\delta x^{\mu} + \frac{\partial L}{\partial U^{\mu}}\delta U^{\mu}
+$$
+
+We know how to express $\delta x^{\mu}$, but we have to find $\delta U^{\mu}$:
+
+$$
+\delta U^{\mu} = \frac{\partial \delta x^{\mu}}{\partial \tau} = \frac{\partial}{\partial \tau} {\omega^{\mu}}_{\nu}x^{\nu}(\tau) =  {\omega^{\mu}}_{\nu}\frac{\partial}{\partial \tau} x^{\nu}(\tau) = {\omega^{\mu}}_{\nu}U^{\nu}
+$$
+
+We then get that:
+
+$$
+\delta L = \frac{\partial L}{\partial x^{\mu}}\delta x^{\mu} + \frac{\partial L}{\partial U^{\mu}}\delta U^{\mu} = \frac{\partial L}{\partial x^{\mu}}{\omega^{\mu}}_{\nu}x^{\nu} + \frac{\partial L}{\partial U^{\mu}}{\omega^{\mu}}_{\nu}U^{\nu}
+$$
+
+\begin{equation}
+\delta L = \left(\frac{\partial L}{\partial x^{\mu}}x^{\nu} + \frac{\partial L}{\partial U^{\mu}}U^{\nu}\right){\omega^{\mu}}_{\nu}
+\end{equation}
+
+
+\section{Appendix}
+
+\subsection{Invariance under infinitesimal rotation}
+We can show that this rotation leaves the Lagrangian invariant by seeing that
+
+$$
+\mathbf{r}^2 = r^2 \rightarrow (\mathbf{r} + \delta\alpha\times\mathbf{r})^2 \approx \mathbf{r}^2 + 2\mathbf{r}\cdot(\delta\alpha\times \mathbf{r}) = \mathbf{r}^2
+$$
+and
+$$
+\mathbf{\dot{r}}^2 \rightarrow \mathbf{\dot{r}}'^2 = (\mathbf{\dot{r}} + \delta \alpha\times \mathbf{\dot{r}})^2 \approx \mathbf{\dot{r}}^2 + 2\mathbf{\dot{r}}\cdot(\delta\alpha\times \mathbf{\dot{r}}) = \mathbf{\dot{r}}^2
+$$
+
+Thus leaving the Lagrangian invariant.
+\label{subsec:invariance}
+
+
+
+
+\end{document}
+
+
