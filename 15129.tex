@@ -20,7 +20,13 @@
 \usepackage{subcaption}
 \usepackage[noabbrev]{cleveref}
 \usepackage{cite}
+\usepackage{pgf,tikz}
 
+
+
+
+\usetikzlibrary{arrows}
+\DeclareMathOperator\artanh{artanh}
 
 \setlength{\droptitle}{-10em}   % This is your set screw
 
@@ -44,7 +50,7 @@
 \begin{document}
 \maketitle
 
-\section*{Question 1)}
+\section{Question 1)}
 
 \subsection*{a)}
 We are looking at a free particle. The easiest coordinate system to use is Cartesian coordinates. The general Lagrangian is given as 
@@ -57,11 +63,11 @@ L = K - V
 Where $K$ is the kinetic energy and $V$ is the potential energy. The free particle is moving without any potential, so $V = 0$. The kinetic energy in Cartesian coordinates is given as $K = \frac{1}{2}mv^2$. So the Lagrangian of the free particle is thus
 
 \begin{equation}
-L = K = \frac{1}{2}mv^2
+L = K = \frac{1}{2}mv^2 = \frac{1}{2}m(\dot{x}^2 + \dot{y}^2 + \dot{z}^2)
 \label{eq:lagrangianFreeParticle}
 \end{equation}
 
-where $v = \mathbf{v}\cdot \mathbf{v}$, where $\mathbf{v} = \dot{\mathbf{r}}$
+%where $v = \mathbf{v}\cdot \mathbf{v}$, where $\mathbf{v} = \dot{\mathbf{r}}$
 
 \subsection*{b)}
 
@@ -74,14 +80,14 @@ p_{c,i} = \frac{\partial L}{\partial \dot{q}_i} =\frac{\partial L}{\partial v_i}
 If we use out Lagrangian \eqref{eq:lagrangianFreeParticle} we get that the canonical momentum is 
 
 \begin{equation}
-p_c = m\mathbf{v}
+\mathbf{p} = m\mathbf{v}
 \label{eq:canonicalMomentum}
 \end{equation}
 
-Normal, mechanical is given as $p = m\mathbf{v}$, and as we see from \eqref{eq:canonicalMomentum}:
+Normal, mechanical is given as $\mathbf{p} = m\mathbf{v}$, and as we see from \eqref{eq:canonicalMomentum}:
 
 $$
-p = p_c
+\mathbf{p} = \mathbf{p}_c
 $$
 
 \subsection*{c)}
@@ -123,20 +129,26 @@ $$
 \mathbf{r} \rightarrow \mathbf{r}' = \mathbf{r} + \delta\mathbf{r} = \mathbf{r} + \delta\mathbf{\alpha}\times \mathbf{r}
 $$
 
-Such an infinitesimal rotation leaves the the Lagrangian invariant (shown in the appendix \ref{subsec:invariance}. We can now find the conserved quantity
+Such an infinitesimal rotation leaves the the Lagrangian invariant (shown in the appendix \ref{subsec:invariance}). We can now find the conserved quantity
 
 $$
 \delta K = \sum_i \frac{\partial L}{\partial \dot{r}_i}\delta r_i = \sum_i mv_i \delta r_i = m\mathbf{v}\cdot\delta\mathbf{r}
 $$
 $$
-= m\mathbf{v}\cdot (\delta\alpha\times \mathbf{r}) = m(\mathbf{r}\times \mathbf{r}) \cdot \delta \alpha = (\mathbf{r}\times \mathbf{p})\cdot\delta\alpha = \mathbf{L}\cdot\delta\alpha
+= m\mathbf{v}\cdot (\delta\alpha\times \mathbf{r}) = m(\mathbf{r}\times \mathbf{v}) \cdot \delta \alpha = (\mathbf{r}\times \mathbf{p})\cdot\delta\alpha = \mathbf{L}\cdot\delta\alpha
 $$
 
 Since $\alpha$ is arbitrary this means that $\mathbf{L}$, the angular momentum, is the conserved.\\
 
 This gives us the six constants of motion: the three components of the momentum, and the three components of the angular momentum.\\
 
-There is a seventh constant of motion, which comes from the Lagrangian's independence of time. This means that energy is a constant of motion.
+There is a seventh constant of motion, which comes from the Lagrangian's independence of time. This means that
+
+$$
+\frac{\partial L}{\partial t} = - \frac{dH}{dt} = 0
+$$
+
+Where $H = K + V$ is the Hamiltonian, and is in our system the same as the energy. This means that energy is a constant of motion.
 
 \subsection*{e)}
 
@@ -209,6 +221,15 @@ We then find:
 $$
 x^{\mu}x_{\mu} = {x'}^{\mu}{x'}_{\mu} = ({L^{\mu}}_{\nu}x^{\nu})({L_{\mu}}^{\rho}x_{\rho}) = ({\delta^{\mu}}_{\nu}x^{\nu} + {\omega^{\mu}}_{\nu} x^{\nu})({\delta_{\mu}}^{\rho}x_{\rho} + {\omega_{\mu}}^{\rho}x_{\rho})
 $$
+
+Now we distribute the parenthesis, and use that
+
+$$
+{\delta^{\mu}}_{\nu}x^{\nu} = x^{\mu},\qquad {\delta_{\mu}}^{\rho}x_{\rho} = x_{\mu}
+$$
+
+And get
+
 $$
 = x^{\mu}x_{\mu} + {\omega^{\mu}}_{\nu} x^{\nu}x_{\mu} + x^{\mu}{\omega_{\mu}}^{\rho}x_{\rho} + {\omega^{\mu}}_{\nu} x^{\nu}{\omega_{\mu}}^{\rho}x_{\rho}
 $$
@@ -231,12 +252,21 @@ $$
 \Rightarrow {\omega^{\mu}}_{\nu} x^{\nu}x_{\mu} = - {\omega_{\mu}}^{\nu}x^{\mu}x_{\nu} 
 $$
 
+If we on the LHS let $\mu \rightarrow \nu$ and $\nu \rightarrow \mu$ we get
+
 $$
-\Rightarrow {\omega^{\mu}}_{\nu} g^{\nu \sigma}x_{\sigma}x_{\mu} = - {\omega_{\mu}}^{\nu}g^{\mu \rho}x_{\rho}x_{\nu} 
+\Rightarrow {\omega^{\mu}}_{\nu} x^{\nu}x_{\mu} = - {\omega_{\nu}}^{\mu}x^{\nu}x_{\mu} 
 $$
 
+With gives us that
 
-\textbf{Skriv mer her!}
+\begin{equation}
+{\omega^{\mu}}_{\nu} = - {\omega_{\nu}}^{\mu}
+\end{equation}
+
+And we have thus showed that ${\omega^{\mu}}_{\nu}$ is anti-symmetric.
+
+
 
 \subsection*{h)}
 
@@ -252,10 +282,16 @@ $$
 \delta L = \frac{\partial L}{\partial x^{\mu}}\delta x^{\mu} + \frac{\partial L}{\partial U^{\mu}}\delta U^{\mu}
 $$
 
-We know how to express $\delta x^{\mu}$, but we have to find $\delta U^{\mu}$:
+We know how to express $\delta x^{\mu}$, but we have to find $\delta U^{\mu}$. We can do this by making the small Lorentz transformation:
 
 $$
-\delta U^{\mu} = \frac{\partial \delta x^{\mu}}{\partial \tau} = \frac{\partial}{\partial \tau} {\omega^{\mu}}_{\nu}x^{\nu}(\tau) =  {\omega^{\mu}}_{\nu}\frac{\partial}{\partial \tau} x^{\nu}(\tau) = {\omega^{\mu}}_{\nu}U^{\nu}
+\delta U^{\mu} = {U'}^{\mu} - {U}^{\mu} ={L^{\mu}}_{\nu}{U}^{\nu} - {U}^{\mu} 
+$$
+$$
+ = ({\delta^{\mu}}_{\nu} + {\omega^{\mu}}_{\nu}){U}^{\nu} - {U}^{\mu} = {\delta^{\mu}}_{\nu}{U}^{\nu} + {\omega^{\mu}}_{\nu}{U}^{\nu} - {U}^{\mu}
+$$
+$$
+= {U}^{\mu} + {\omega^{\mu}}_{\nu}{U}^{\nu} - {U}^{\mu} = {\omega^{\mu}}_{\nu}{U}^{\nu}
 $$
 
 We then get that:
@@ -266,7 +302,363 @@ $$
 
 \begin{equation}
 \delta L = \left(\frac{\partial L}{\partial x^{\mu}}x^{\nu} + \frac{\partial L}{\partial U^{\mu}}U^{\nu}\right){\omega^{\mu}}_{\nu}
+\label{eq:smallChangeL}
 \end{equation}
+
+\subsection*{i)}
+
+We are going to look closer at the small change in the Lagrangian. We note that ${\omega^{\mu}}_{\nu}$ is antisymmetric and can be written as
+
+$$
+{\omega^{\mu}}_{\nu} = \frac{1}{2}({\omega^{\mu}}_{\nu} - {\omega_{\nu}}^{\mu})
+$$
+
+We can use this in \eqref{eq:smallChangeL} to get
+
+$$
+\delta L = \frac{1}{2}({\omega^{\mu}}_{\nu} - {\omega_{\nu}}^{\mu})\left(\frac{\partial L}{\partial x^{\mu}}x^{\nu} + \frac{\partial L}{\partial U^{\mu}}U^{\nu}\right)
+$$
+
+We are then going to use Lagrange's equation:
+
+$$
+\frac{\partial L}{\partial x^{\mu}} = \frac{d}{d\tau}\frac{\partial L}{\partial U^{\mu}}
+$$
+
+which gives us
+
+$$
+\delta L = \frac{1}{2}({\omega^{\mu}}_{\nu} - {\omega_{\nu}}^{\mu})\left(x^{\nu}\frac{d}{d\tau}\frac{\partial L}{\partial U^{\mu}} + \frac{\partial L}{\partial U^{\mu}}U^{\nu}\right)
+$$
+
+If we look at $x^{\nu}\frac{d}{d\tau}\frac{\partial L}{\partial U^{\mu}}$ we see that we can use the product rule backwards and get:
+
+$$
+x^{\nu}\frac{d}{d\tau}\frac{\partial L}{\partial U^{\mu}} = \frac{d}{d\tau}\left(\frac{\partial L}{\partial U^{\mu}}x^{\nu}\right) - \frac{\partial L}{\partial U^{\mu}}\frac{d}{d\tau}x^{\nu}
+$$
+
+$$
+= \frac{d}{d\tau}\left(\frac{\partial L}{\partial U^{\mu}}x^{\nu}\right) - \frac{\partial L}{\partial U^{\mu}}U^{\nu}
+$$
+
+Using this we get:
+
+$$
+\delta L = \frac{1}{2}({\omega^{\mu}}_{\nu} - {\omega_{\nu}}^{\mu})\left(\frac{d}{d\tau}\left(\frac{\partial L}{\partial U^{\mu}}x^{\nu}\right) - \frac{\partial L}{\partial U^{\mu}}U^{\nu} + \frac{\partial L}{\partial U^{\mu}}U^{\nu}\right)
+$$
+$$
+=\frac{1}{2}({\omega^{\mu}}_{\nu} - {\omega_{\nu}}^{\mu})\left(\frac{d}{d\tau}\left(\frac{\partial L}{\partial U^{\mu}}x^{\nu}\right) \right)
+$$
+
+
+Now we want to lower the indices of $\omega$ with the metric tensor:
+
+$$
+\delta L = \frac{1}{2}(g^{\mu \rho}{\omega_{\rho}}_{\nu} - {\omega_{\nu}}_{\sigma}g^{\sigma\mu})\left(\frac{d}{d\tau}\left(\frac{\partial L}{\partial U^{\mu}}x^{\nu}\right) \right)
+$$
+
+$$
+= \frac{1}{2}\left( g^{\mu \rho}{\omega_{\rho}}_{\nu}\frac{d}{d\tau}\left(\frac{\partial L}{\partial U^{\mu}}x^{\nu}\right) - {\omega_{\nu}}_{\sigma}g^{\sigma\mu}\frac{d}{d\tau}\left(\frac{\partial L}{\partial U^{\mu}}x^{\nu}\right)\right)
+$$
+
+We can now apply the metric tensor to the differentiation
+
+$$
+= \frac{1}{2}\left({\omega_{\rho}}_{\nu}\frac{d}{d\tau}\left(\frac{\partial L}{\partial U_{\rho}}x^{\nu}\right) - {\omega_{\nu}}_{\sigma}\frac{d}{d\tau}\left(\frac{\partial L}{\partial U_{\sigma}}x^{\nu}\right)\right)
+$$
+
+
+Each term is it's own sum, meaning that we can change the summation indices. On the left term we are going to let $\nu \rightarrow \mu$ and $\rho \rightarrow \nu$, and on the right term we are going to let $\sigma \rightarrow \mu$:
+
+$$
+= \frac{1}{2}\left({\omega_{\nu}}_{\mu}\frac{d}{d\tau}\left(\frac{\partial L}{\partial U_{\nu}}x^{\mu}\right) - {\omega_{\nu}}_{\mu}\frac{d}{d\tau}\left(\frac{\partial L}{\partial U_{\mu}}x^{\nu}\right)\right)
+$$
+
+We can now pull out the $\omega$ and the $\frac{d}{d\tau}$ we get the final expression:
+
+\begin{equation}
+\delta L = \frac{1}{2}\omega_{\nu \mu}\frac{d}{d\tau}\left(x^{\mu}\frac{\partial L}{\partial U_{\nu}} - x^{\nu}\frac{\partial L}{\partial U_{\mu}}\right)
+\label{eq:finalDeltaL}
+\end{equation}
+
+
+
+\subsection*{j)}
+
+We want that the changes small in the Lorentz transformation leaves the Lagrangian unchanged. This means that we want 
+
+$$
+\delta L = 0
+$$
+
+This gives us that 
+
+$$
+\frac{1}{2}\omega_{\nu \mu}\frac{d}{d\tau}\left(x^{\mu}\frac{\partial L}{\partial U_{\nu}} - x^{\nu}\frac{\partial L}{\partial U_{\mu}}\right) = 0
+$$
+
+We want this to be true for all small changes ${\omega^{\mu}}_{\nu}$ which means that the $d/d\tau$-term has to be zero:
+
+$$
+\frac{d}{d\tau}\left(x^{\mu}\frac{\partial L}{\partial U_{\nu}} - x^{\nu}\frac{\partial L}{\partial U_{\mu}}\right) = 0
+$$
+
+Which implies
+
+\begin{equation}
+x^{\mu}\frac{\partial L}{\partial U_{\nu}} - x^{\nu}\frac{\partial L}{\partial U_{\mu}} = \text{constant}^{\mu \nu}
+\end{equation}
+
+
+So this is the constant of motion. But what is this quantity? From definition of the relativistic Lagrangian \eqref{eq:relativisticLagrangian} we see that
+
+$$
+\frac{\partial L}{\partial U_{\nu}}  = mU^{\nu}, \qquad \frac{\partial L}{\partial U_{\mu}}  = mU^{\mu}
+$$
+
+So the constant of motion is
+
+\begin{equation}
+x^{\mu}mU^{\nu} - x^{\nu}mU^{\nu} = l^{\mu \nu}
+\end{equation}
+
+We recognize this as the four-angular momentum as the constant of motion.
+
+
+
+
+\section{Question 2)}
+
+\definecolor{fftttt}{rgb}{1,0.2,0.2}
+\definecolor{ttwwff}{rgb}{0.2,0.4,1}
+\begin{figure}[H]
+\centering
+\begin{tikzpicture}[line cap=round,line join=round,>=triangle 45,x=0.8915352494303906cm,y=0.8481576279376397cm]
+\draw[->,color=black] (-2.85,0) -- (7.24,0);
+\foreach \x in {-2,-1,1,2,3,4,5,6,7}
+\draw[shift={(\x,0)},color=black] (0pt,2pt) -- (0pt,-2pt);
+\draw[color=black] (6.96,0.07) node [anchor=south west] { x};
+\draw[->,color=black] (0,-2.04) -- (0,6.21);
+\foreach \y in {-2,-1,1,2,3,4,5,6}
+\draw[shift={(0,\y)},color=black] (2pt,0pt) -- (-2pt,0pt);
+\draw[color=black] (0.09,5.86) node [anchor=west] { ct};
+\clip(-2.85,-2.04) rectangle (7.24,6.21);
+\draw [domain=-2.85:7.24] plot(\x,{(-0--4.6*\x)/5.13});
+\draw (5.78,5.08) node[anchor=north west] {Light};
+\draw [->,color=ttwwff] (0,0) -- (1.19,6.3);
+\draw [color=fftttt] (0,0)-- (2.93,6.18);
+\draw [->,color=ttwwff] (0,0) -- (6.7,0.96);
+\draw [color=ttwwff](1.37,6.3) node[anchor=north west] {$$ ct' $$};
+\draw [color=ttwwff](6.39,1.69) node[anchor=north west] {$$ x' $$};
+\draw [color=ttwwff](1.09,5.62) node[anchor=north west] {Mass 1};
+\draw [color=fftttt](2.46,4.91) node[anchor=north west] {Mass 2};
+\end{tikzpicture}
+\caption{Figure showing the Minkowski-diagram for the two massive particles and the light. The world line of the light is at $45^{\circ}$ to both axes. The axes of the system $S'$ is marked as $ct'$ and $x$, and is the rest fram of the slower particle with 'Mass 1'.}
+\end{figure}
+
+
+The rapidity $\chi$ is defines as
+
+\begin{equation}
+\beta = \tanh\chi
+\label{eq:chi}
+\end{equation}
+
+We are going to show that the difference in rapidity of the two particles are the same in the two reference systems. In $S$ the difference is simply
+
+$$
+\chi_2 - \chi_1
+$$
+
+In $S'$ we have that $\chi_1' = 0$ since we are in the rest frame of particle 1, so the difference is simply $\chi_2 '$. So we have to show that
+
+\begin{equation}
+\chi_2 - \chi_1 = \chi_2'
+\label{eq:chiEquiv}
+\end{equation}
+
+
+We get $\chi_1$ and $\chi_2$ straight from \eqref{eq:chi}
+
+\begin{equation}
+\chi_1 = \artanh\left(\frac{v_1}{c}\right), \qquad \chi_2 = \artanh\left(\frac{v_2}{c}\right)
+\end{equation}
+
+
+$\chi_2'$ is a bit more difficult, since we have to find velocity of particle 2 in $S'$. We have to use the velocity-addition formula:
+
+\begin{equation}
+v_2' = \frac{v_2 - v_1}{1 -\frac{v_1v_2}{c^2}}
+\end{equation}
+
+And we find that
+
+\begin{equation}
+\chi_2' = \artanh\left(\frac{v_2/c - v_1/c}{1 -\frac{v_1v_2}{c^2}}\right)
+\end{equation}
+
+We can now start to unravel \eqref{eq:chiEquiv}. We have to use one important identity, namely that
+
+\begin{equation}
+\artanh z = \frac{1}{2}\ln \frac{1+z}{1-z}
+\end{equation}
+
+You will find a proof of this identity in the appendix \ref{subsec:artanh}.\\
+
+We are now going to start with the RHS.
+
+$$
+\chi_2 - \chi_1 = \artanh\left(\frac{v_2}{c}\right) - \artanh\left(\frac{v_1}{c}\right)
+$$
+$$
+= \frac{1}{2}\ln \frac{1+\frac{v_2}{c}}{1-\frac{v_2}{c}} - \frac{1}{2}\ln \frac{1+\frac{v_1}{c}}{1-\frac{v_1}{c}} = \frac{1}{2}\ln \frac{(1+\frac{v_2}{c})(1-\frac{v_1}{c})}{(1-\frac{v_2}{c})(1+\frac{v_1}{c})}
+$$
+
+\begin{equation}
+\chi_2 - \chi_1 = \frac{1}{2}\ln \frac{1 + \frac{v_2}{c} - \frac{v_1}{c} - \frac{v_1v_2}{c^2}}{1 - \frac{v_2}{c} + \frac{v_1}{c} - \frac{v_1v_2}{v^2}}
+\label{eq:chiRHS}
+\end{equation}
+
+We can now look at $\chi_2$:
+
+$$
+\chi_2' = \artanh\left(\frac{v_2/c - v_1/c}{1 -\frac{v_1v_2}{c^2}}\right)
+$$
+$$
+= \frac{1}{2}\ln \frac{1 + \frac{v_2/c - v_1/c}{1 -\frac{v_1v_2}{c^2}}}{1-\frac{v_2/c - v_1/c}{1 -\frac{v_1v_2}{c^2}}}
+$$
+
+We then pull out $\frac{1}{1 -\frac{v_1v_2}{c^2}}$ from the numerator and denominator, and get that
+
+\begin{equation}
+\chi_2' =\frac{1}{2}\ln \frac{1 -\frac{v_1v_2}{c^2} + \frac{v_2}{c} - \frac{v_1}{c}}{1 -\frac{v_1v_2}{c^2}-\frac{v_2}{c} + \frac{v_1}{c}}
+\label{eq:chiLHS}
+\end{equation}
+
+We see that \eqref{eq:chiRHS} and \eqref{eq:chiLHS} are equivalent, and we have thus showed that
+
+$$
+\chi_2 - \chi_1 = \chi_2'
+$$
+
+Meaning that the difference in rapidity is the same in both reference systems.
+
+\section{Question 3)}
+
+We are going to find the shortest path between two points on a sphere. A length of a path is defined as
+
+\begin{equation}
+S = \int ds
+\end{equation}
+
+Where $ds$ is the line element. We are going to use the normal 'physicist' definitions of spherical coordinates, where $\theta$ is the angle from the $z$-axis, and $\phi$ is the angle in the $xy$-plane. The line element is in these coordinates defined as
+
+$$
+ds = \sqrt{dr^2 + r^2 d \theta^2 + r^2\sin^2(\theta) d\phi^2}
+$$
+
+We want find the path on the surface of the sphere, which means that $dr = 0$, so
+
+\begin{equation}
+ds = \sqrt{dr^2 + r^2 d \theta^2 + r^2\sin^2(\theta) d\phi^2}
+\end{equation}
+
+
+We then get the path
+
+$$
+S = \int \sqrt{ r^2 d \theta^2 + r^2\sin^2(\theta) d\phi^2}
+$$
+
+We want a function $\phi(\theta)$ so pull $d\theta$ out of the square root and make in the integration variable. We also pull out $r$, and get
+
+\begin{equation}
+S = r \int_{\theta_1}^{\theta_2} \sqrt{ 1 + \sin^2(\theta) \left(\frac{d\phi}{d\theta}\right)^2} d\theta
+\end{equation}
+
+This is a calculus of variation problem, so to find the shortest path we use Euler-Lagrange's equation:
+
+\begin{equation}
+\frac{d}{d\theta}\frac{\partial L}{\partial \phi'} - \frac{\partial L}{\partial \phi} = 0
+\label{eq:opp3EulerLagrange}
+\end{equation}
+
+
+Where
+
+\begin{equation}
+L =  \sqrt{ 1 + \sin^2(\theta) \phi'^2} 
+\end{equation}
+
+
+With $\phi = \frac{d\phi}{d\theta}$. We immediately see that $L$ has no explicit dependence on $\phi$ meaning that \eqref{eq:opp3EulerLagrange} reduces to
+
+$$
+\frac{d}{d\theta}\frac{\partial L}{\partial \phi'} = 0
+$$
+
+Meaning that
+
+\begin{equation}
+\frac{\partial L}{\partial \phi'} = c = \text{constant}
+\end{equation}
+
+If we differentiate $L$ we find that
+
+\begin{equation}
+\frac{\sin^2(\theta)\phi'}{\sqrt{ 1 + \sin^2(\theta) \phi'^2} } = c
+\end{equation}
+
+We then have to do some algebra to isolate $\phi'$. We start squaring the expression and moving the denominator to the other side
+
+$$
+\Rightarrow \sin^4(\theta) \phi'^2 = c^2(1+\sin^2(\theta)\phi'^2)
+$$
+
+And we then see that
+
+$$
+\phi'^2 = \frac{c^2}{\sin^4(\theta) - c^2\sin^2(\theta)}
+$$
+
+And thus we get
+
+\begin{equation}
+\phi' = \frac{c}{\sin(\theta) \sqrt{\sin^2(\theta) - c^2}}
+\end{equation}
+
+So to find $\phi(\theta)$ we have to solve this differential equation. We take the integral of both sides:
+
+\begin{equation}
+\phi_2 - \phi_1 = \int_{\theta_1}^{\theta_2} \frac{c}{\sin(\theta) \sqrt{\sin^2(\theta) - c^2}} d\theta 
+\end{equation}
+
+This is a difficult integral to solve, I have done it in the appendix \ref{subsec:integral}, but here I am just going to give the answer
+
+\begin{equation}
+\phi_2 - \phi_1 = \arccos\left(\frac{c}{\sqrt{1-c^2}}\cot\theta_2\right) - \arccos\left(\frac{c}{\sqrt{1-c^2}}\cot\theta_1\right)
+\label{eq:phi2-phi1}
+\end{equation}
+
+We are starting in the point $(r,\theta_1, \phi_1) = (r,\frac{\pi}{2},0)$. If we insert this into \eqref{eq:phi2-phi1} we get that the parametrization of $\phi(\theta)$
+
+\begin{equation}
+\phi_2 = \phi(\theta) = \arccos\left(\frac{c}{\sqrt{1-c^2}}\cot\theta\right) - \frac{\pi}{2}
+\label{eq:phi(theta)}
+\end{equation}
+
+
+Given a point $(r,\theta_2,\phi_2)$ we can insert these values into \eqref{eq:phi(theta)} and get the value for $c$. And with $c$ determined \eqref{eq:phi(theta)} gives a parameterization for the curve of the shortest path between the two points.\\
+
+With constant $\phi = 0$ or $\theta = \frac{\pi}{2}$ this parameterization beaks down. For example if we have constant $\theta = \frac{\pi}{2}$ equation \eqref{eq:phi(theta)} gives us a constant $\phi$ for every end point $(r,\theta_2,\phi_2)$ we have chosen. This means that for every end point on the equator the parameterization is unable to move from the starting point. But for simplicity we are going to ignore these solutions, and take \eqref{eq:phi(theta)} to be the final solution of the problem.
+
+
+
+
+
+
+
+
 
 
 \section{Appendix}
@@ -285,8 +677,107 @@ $$
 Thus leaving the Lagrangian invariant.
 \label{subsec:invariance}
 
+\subsection{Proof of artanh-identity}
+
+To show that
+
+$$
+\artanh (z) = \frac{1}{2} \ln \frac{1+z}{1-z}
+$$
+
+We are going to start with 
+
+$$
+w = \tanh z = \frac{\sinh z}{\cosh z} = \frac{e^z - e^{-z}}{e^z + e^{-z}}
+$$
+
+We can then multiply the fraction by $e^z$
+
+$$
+w = \frac{e^{2z} -1 }{e^{2z}+1}
+$$
+$$
+e^{2z}(w-1) = -1-w 
+$$
+$$
+e^{2z} = \frac{1+w}{1-w}
+$$
+
+If we then take the logarithm of both sides and divide by 2, we get
+
+$$
+z = \frac{1}{2}\ln \frac{1+w}{1-w}
+$$
+
+Since $\tanh (z) = w$ gives us that $z = \tanh^{-1} (w)$, we can see that
+
+$$
+\artanh (z) = \frac{1}{2}\ln \frac{1+z}{1-z}
+$$
+\label{subsec:artanh}
+
+\subsection{Solving the integral from 3)}
+
+This solution was heavily inspired/taken from \cite{triks}.\\
+
+We are going to solve
+
+$$
+ \int\frac{c}{\sin(\theta) \sqrt{\sin^2(\theta) - c^2}} d\theta 
+$$
+
+We start by pulling out one more $\sin\theta$
+
+$$
+ \int \frac{c}{\sin^2(\theta) \sqrt{1 - \frac{c^2}{\sin^2(\theta)}}} d\theta 
+$$
+
+We now use that
+
+$$
+\frac{1}{\sin^2(\theta)} = \csc^2(\theta) = 1 + \cot^2(\theta)
+$$
+
+We then get
+
+$$
+ \int \frac{c\cdot\csc^2(\theta)}{\sqrt{1 - c^2 - c^2\cot^2(\theta)}} d\theta 
+$$
+
+We are now going to use the 
+
+$$
+u = \frac{c}{{\sqrt{1-c^2}}}\cot(\theta) \Leftrightarrow c^2\cot^2(\theta) = u^2(1-c^2)
+$$
+and
+$$
+du = -\frac{c}{\sqrt{1-c^2}}\csc^2(\theta) d\theta \Leftrightarrow \csc^2(\theta) d\theta  = -\frac{\sqrt{1-c^2}}{c}du
+$$
+
+This gives us
+
+$$
+ -\int \frac{\sqrt{1-c^2}}{c}\frac{c}{\sqrt{1-c^2-u^2(1-c^2)}} du
+$$
+$$
+= -\int {\sqrt{1-c^2}}\frac{1}{\sqrt{1-c^2}\sqrt{1-u^2}} du
+$$
+$$
+= -\int\frac{1}{\sqrt{1-u^2}} du
+$$
+
+This is an integral we recognize as $\arccos(u)$. So we have finally solved the integral and we got
+
+\begin{equation}
+ \int \frac{c}{\sin(\theta) \sqrt{\sin^2(\theta) - c^2}} d\theta = \arccos(u) = \arccos\left(\frac{c}{\sqrt{1-c^2}\cot(\theta)}\right)
+\end{equation}
 
 
+\label{subsec:integral}
+
+
+\bibliography{ref} 
+\bibliographystyle{plain}
 
 \end{document}
 
